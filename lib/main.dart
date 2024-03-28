@@ -1,43 +1,34 @@
+
+
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
 
-void main() {
-WidgetsFlutterBinding.ensureInitialized();
-  runApp( MyApp());
-}
+import 'app.dart';
+import 'data/repositories/authentication/authentication-repository.dart';
+import 'firebase_options.dart';
 
-class MyApp extends StatelessWidget {
+void main() async{
+  ///---WIDGET BINDING
+  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future:_initialization,
-        builder: (context,snapshot){
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return const MaterialApp(
-              home:Scaffold(body:Center(child:Text("A this job Searching App",style:TextStyle(color:Colors.cyan,fontSize:40)))
-              )
-            );
-          }
-          else if(snapshot.hasError){
-            return const MaterialApp(
-                home:Scaffold(body:Center(child:Text("A this job Searching App",style:TextStyle(color:Colors.cyan,fontSize:40)))
-                )
-            );
-          }
-          return MaterialApp(
-            title:"Job Searching App",
-            theme: ThemeData(
-              scaffoldBackgroundColor:Colors.black,
-              primaryColor:Colors.blue,
-              fontFamily:"Signatra"
-            ),
-            home:Scaffold()
-          );
-        }
-    );
-  }
+  ///----AWAIT SPLASH UNTIL ITEM LOAD----
+  FlutterNativeSplash.preserve(widgetsBinding:widgetsBinding);
+
+
+  ///----INITIALIZATION FIREBASE AND AUTHENTICATION REPOSITORY----
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
+        (FirebaseApp value) => Get.put(AuthenticationRepository()),
+  );
+
+  await FirebaseAppCheck.instance.activate(
+    webProvider:ReCaptchaV3Provider("recaptcha-v3-site-key"),
+    androidProvider: AndroidProvider.debug,
+  );
+
+
+  runApp(const App());
 }

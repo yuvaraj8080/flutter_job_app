@@ -19,8 +19,19 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  get:
+  intl:
+  shimmer:
+  get_storage:
+  iconsax:
+  google_sign_in:
+  firebase_app_check:
+  lottie:
+  flutter_native_splash:
   cached_network_image:
+  smooth_page_indicator:
   image_picker:
+  connectivity_plus:
   image_cropper:
   url_launcher:
   permission_handler:
@@ -59,10 +70,10 @@ flutter:
     - assets/images/
 
 
-  fonts:
-    - family: Signatra
-      fonts:
-        - asset: fonts/Signatra.ttf
+#  fonts:
+#    - family: Signatra
+#      fonts:
+#        - asset: fonts/Signatra.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
