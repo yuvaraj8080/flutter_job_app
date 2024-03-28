@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../../../utils/constants/colors.dart';
+import '../../../../constants/colors.dart';
 import '../../../../utils/halpers/helper_function.dart';
 
 class TSearchController extends StatelessWidget {

@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/colors.dart';
+import '../../../constants/colors.dart';
 import '../../../utils/halpers/helper_function.dart';
 
 class TChoiceChip extends StatelessWidget {

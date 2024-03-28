@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../utils/constants/colors.dart';
+import '../../../../constants/colors.dart';
 import '../container/circular_container.dart';
 import 'curved_edges.dart';
 

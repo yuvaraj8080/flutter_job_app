@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'bindings/genral_bindinng.dart';
-import 'utils/constants/colors.dart';
+import 'constants/colors.dart';
 import 'utils/theme/theme.dart';
 
 

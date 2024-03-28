@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
+import '../../constants/colors.dart';
 import '../../features/authentication/screens/Login/login_controller.dart';
-import '../../utils/constants/colors.dart';
 
 class TSocialButtons extends StatelessWidget {
   const TSocialButtons({

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/colors.dart';
+import '../../../constants/colors.dart';
 import '../../../utils/halpers/helper_function.dart';
 import '../../../utils/shimmer_circular_Indicator/shimmer.dart';
 

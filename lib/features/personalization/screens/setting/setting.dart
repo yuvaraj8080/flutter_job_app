@@ -7,8 +7,8 @@ import '../../../../common/widgets.Login_Signup/custom_shapes/curved_edges.dart/
 import '../../../../common/widgets.Login_Signup/list_Tile/setting_menu_tile.dart';
 import '../../../../common/widgets.Login_Signup/list_Tile/user_profile.dart';
 import '../../../../common/widgets.Login_Signup/texts/section_heading.dart';
+import '../../../../constants/colors.dart';
 import '../../../../data/repositories/authentication/authentication-repository.dart';
-import '../../../../utils/constants/colors.dart';
 import '../profile/profile.dart';
 
 class SettingScreen extends StatelessWidget {

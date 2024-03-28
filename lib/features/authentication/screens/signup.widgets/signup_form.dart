@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../../../utils/constants/colors.dart';
+import '../../../../constants/colors.dart';
 import '../../../../utils/validators/validator.dart';
 import '../../controllers/signup/sugnup_controller.dart';
 
