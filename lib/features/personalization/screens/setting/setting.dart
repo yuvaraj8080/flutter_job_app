@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_job_app/features/personalization/controllers/user_controller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,6 +17,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => UserController());
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: [

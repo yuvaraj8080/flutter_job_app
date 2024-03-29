@@ -52,7 +52,7 @@ class VerifyEmailController extends GetxController {
     }
   }
 
-  // Show success screen after email verification
+  // Show success screens after email verification
   void showSuccessScreen() {
     Get.offAll(() => SuccessScreen(
           image: "assets/images/animations/emailVerificatation1.png",

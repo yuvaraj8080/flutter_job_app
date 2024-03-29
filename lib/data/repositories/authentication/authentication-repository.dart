@@ -40,7 +40,7 @@ class AuthenticationRepository extends GetxController{
     if (user != null) {
       // User is signed in
       if (user.emailVerified) {
-        // Email is verified, navigate to the main screen
+        // Email is verified, navigate to the main screens
         Get.offAll(() => const NavigationMenu());
       } else {
         // Email is not verified, navigate to the VerifyEmailScreen
