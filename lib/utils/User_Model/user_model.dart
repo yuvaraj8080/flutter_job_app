@@ -9,7 +9,7 @@ class UserModel{
   String lastName;
   final String username;
   final String email;
-  String phoneNumber;
+  String location;
   String profilePicture;
 
   ///  CONSTRUCTOR FOR USERMODEL
@@ -19,7 +19,7 @@ UserModel({
   required this.lastName,
   required this.username,
   required this.email,
-  required this.phoneNumber,
+  required this.location,
   required this. profilePicture,
 });
 
@@ -27,7 +27,8 @@ UserModel({
   String get fullName => "$firstName $lastName";
 
   ///HELPER FUNCTION TO FORMAT PHONE NUMBER
-  String get formattedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
+
+  // String get formattedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
 
   ///STATIC FUNCTION TO SPLIT FULL NAME INTO FIRST AND LAST NAME
    static List<String> nameParts(fullName)=> fullName.split(" ");
@@ -43,7 +44,7 @@ UserModel({
    }
 
    ///STATIC FUNCTION TO CREATE AN EMPTY USER MADEL
-   static UserModel empty() => UserModel(id:"", firstName: "", lastName: "", username: "", email: "", phoneNumber: "", profilePicture: "");
+   static UserModel empty() => UserModel(id:"", firstName: "", lastName: "", username: "", email: "", location: "", profilePicture: "");
 
    /// CONVERT MODEL TO JSON STRUCTURE FOR STORING IN FIREBASE.
    Map<String, dynamic> toJson(){
@@ -52,7 +53,7 @@ UserModel({
        "LastName" : lastName,
        "UserName" : username,
        "Email" : email,
-       "PhoneNumber" : phoneNumber,
+       "Location" : location,
        "ProfilePicture" : profilePicture,
      };
    }
@@ -67,7 +68,7 @@ UserModel({
         lastName: data["LastName"] ?? '',
         username: data["UserName"] ?? '',
         email: data["Email"] ?? '',
-        phoneNumber: data["PhoneNumber"] ?? '',
+        location: data["Location"] ?? '',
         profilePicture: data["ProfilePicture"] ?? '',
       );
     } else {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_job_app/features/components/screens/upload_job.dart';
-import 'package:flutter_job_app/features/components/screens/jobs_screen.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'features/components/screens/search_companies.dart';
+import 'features/JobFeed/screens/jobs_screen.dart';
+import 'features/JobPost/screens/search_companies.dart';
+import 'features/JobPost/screens/upload_job.dart';
 import 'features/personalization/screens/setting/setting.dart';
 
 class NavigationMenu extends StatelessWidget {

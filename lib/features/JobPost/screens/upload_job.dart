@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_job_app/data/repositories/user/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_job_app/features/components/controller/jobController.dart';
-
 import '../../../constants/colors.dart';
 import '../../../constants/persistent.dart';
 import '../../../constants/sizes.dart';
 import '../../../utils/halpers/helper_function.dart';
+import '../controller/JobPostController.dart';
+import '../models/JobFormText.dart';
 
 class UploadJob extends StatefulWidget {
   const UploadJob({super.key});
@@ -18,7 +19,6 @@ class UploadJob extends StatefulWidget {
 }
 
 class _UploadJobState extends State<UploadJob> {
-  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _showTaskCategoriesDialog({required Size size}) {
     return showDialog(
@@ -88,6 +88,7 @@ class _UploadJobState extends State<UploadJob> {
     final controller = Get.put(JobController());
     Size size = MediaQuery.of(context).size;
     final dark = THelperFunction.isDarkMode(context);
+
 
     return Scaffold(
       body: Center(
@@ -161,15 +162,4 @@ class _UploadJobState extends State<UploadJob> {
   }
 }
 
-class JobFormText extends StatelessWidget {
-  final String label;
-  const JobFormText({Key? key, required this.label}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Text(label, style: Theme.of(context).textTheme.headlineSmall),
-    );
-  }
-}

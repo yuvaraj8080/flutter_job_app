@@ -8,6 +8,8 @@ import 'package:uuid/uuid.dart';
 import '../../../common/NetworkManager/network_manager.dart';
 import '../../../constants/image_string.dart';
 import '../../../utils/popups/full_screen_loader.dart';
+import '../../personalization/controllers/user_controller.dart';
+
 
 class JobController extends GetxController {
   static JobController get instance => Get.find();
@@ -19,8 +21,11 @@ class JobController extends GetxController {
   final deadlineDataController = TextEditingController(text: "Job Deadline Date");
   GlobalKey<FormState> formKey = GlobalKey();
 
+
   /// JOB UPLOAD TASK HERE
   Future<void> uploadTask() async {
+
+
     /// FULL SCREEN LOADING HERE
     TFullScreenLoader.openLoadingDialog("We are processing your information...",
         "assets/images/animations/loading.json");
@@ -57,6 +62,13 @@ class JobController extends GetxController {
 
     /// UPLOAD POST DATA IN FIRESTORE
     try {
+      final controller = Get.put(UserController());
+      name  = controller.user.value.fullName;
+      userImage = controller.user.value.profilePicture;
+      location  = controller.user.value.location;
+
+
+
       await _db.collection('jobs').doc(jobId).set({
         'jobId': jobId,
         'uploadedBy': _uid,

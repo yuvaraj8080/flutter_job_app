@@ -19,7 +19,7 @@ class SignupController extends GetxController{
   final username = TextEditingController();
   final password = TextEditingController();
   final firstName = TextEditingController();
-  final phoneNumber = TextEditingController();
+  final location = TextEditingController();
 
   GlobalKey<FormState> signupFormKey = GlobalKey();
 
@@ -64,7 +64,7 @@ class SignupController extends GetxController{
          lastName: lastName.text.trim(),
          username: username.text.trim(),
          email: email.text.trim(),
-         phoneNumber: phoneNumber.text.trim(),
+         location: location.text.trim(),
          profilePicture: '',
        );
 

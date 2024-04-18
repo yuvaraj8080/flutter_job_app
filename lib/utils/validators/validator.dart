@@ -9,7 +9,7 @@ class TValidator{
 
   static String? stringValue(String? value){
     if(value == null || value.isEmpty){
-      return "Enter Correct value";
+      return "Please Enter correct value";
     }
     return null;
   }

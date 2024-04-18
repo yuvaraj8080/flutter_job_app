@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,6 @@ class UserController extends GetxController{
 
 
   /// SAVE USER RECORD FROM ANY REGISTRATION PROVIDER
-
 Future<void> saveUserRecord(UserCredential? userCredential) async{
   try{
 
@@ -70,7 +68,7 @@ Future<void> saveUserRecord(UserCredential? userCredential) async{
             lastName: nameParts.length > 1 ? nameParts.sublist(1).join("") : '',
             username: username,
             email:userCredential.user!.email ?? '',
-            phoneNumber: userCredential.user!.phoneNumber ?? '',
+            location: userCredential.user!.phoneNumber?? '',
             profilePicture:userCredential.user!.photoURL??''
         );
 
