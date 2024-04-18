@@ -21,7 +21,7 @@ class JobTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) => TValidator.validateEmptyText(value,''),
+      validator: (value) => TValidator.stringValue(value),
       enabled: enabled,
       key: ValueKey(valueKey),
       maxLines: valueKey == 'JobDescription' ? 3 : 1,

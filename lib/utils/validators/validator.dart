@@ -7,6 +7,13 @@ class TValidator{
     return null;
   }
 
+  static String? stringValue(String? value){
+    if(value == null || value.isEmpty){
+      return "Enter Correct value";
+    }
+    return null;
+  }
+
 
   static String ? validateEmail(String? value){
     if(value == null || value.isEmpty){
