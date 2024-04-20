@@ -1,4 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_job_app/features/JobFeed/controller/JobDelete_controller.dart';
+import 'package:flutter_job_app/utils/loaders/snackbar_loader.dart';
+import 'package:get/get.dart';
+
+import '../screens/jobDeatails.dart';
 
 class JobCardScreen extends StatefulWidget {
   final String jobTitle;
@@ -27,12 +34,35 @@ class JobCardScreen extends StatefulWidget {
 }
 
 class _JobCardScreenState extends State<JobCardScreen> {
+
+
   @override
   Widget build(BuildContext context) {
+    final deletejobcontroller = Get.put(JobDeleteController());
     return Card(
         child: ListTile(
-            onTap: () {},
-            onLongPress: () {},
+            onTap: ()=> Get.to(()=> const JobDetailScreen()),
+            onLongPress: ()=>deletejobcontroller.DeleteJobDialog(()async{
+
+              final FirebaseAuth auth = FirebaseAuth.instance;
+              final FirebaseFirestore db = FirebaseFirestore.instance;
+              User? user = auth.currentUser;
+              final uid = user!.uid;
+
+              try{
+                if(widget.uploadedBy == uid){
+                  await db.collection("jobs").doc(widget.jobId).delete();
+                  TLoaders.customToast(message:"Job Post Successfully Deleted");
+                  Navigator.canPop(context)? Navigator.pop(context): null;
+                }
+                else{
+                  TLoaders.errorSnackBar(title:"Something went wrong please try again");
+                }
+              }
+              catch(e){
+                TLoaders.warningSnackBar(title:"Oh Snap!",message:e.toString());
+              }
+            }),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             leading: Container(
@@ -63,3 +93,5 @@ class _JobCardScreenState extends State<JobCardScreen> {
             trailing: const Icon(Icons.keyboard_arrow_right, size: 30)));
   }
 }
+
+

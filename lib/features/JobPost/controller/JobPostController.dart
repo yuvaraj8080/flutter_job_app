@@ -30,15 +30,7 @@ class JobController extends GetxController {
     TFullScreenLoader.openLoadingDialog("We are processing your information...",
         "assets/images/animations/loading.json");
 
-    final jobId = const Uuid().v4();
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      TFullScreenLoader.stopLoading();
-      TLoaders.errorSnackBar(title: "Authentication Error", message: "User is not logged in.");
-      return;
-    }
-    final _db = FirebaseFirestore.instance;
-    final _uid = user.uid;
+
 
     /// CHECK INTERNET CONNECTIVITY
     final isConnected = await NetworkManager.instance.isConnected();
@@ -59,6 +51,17 @@ class JobController extends GetxController {
       TLoaders.warningSnackBar(title: "Date Required", message: "Please pick a deadline date for the job.");
       return;
     }
+
+
+    final jobId = const Uuid().v4();
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(title: "Authentication Error", message: "User is not logged in.");
+      return;
+    }
+    final _db = FirebaseFirestore.instance;
+    final _uid = user.uid;
 
     /// UPLOAD POST DATA IN FIRESTORE
     try {

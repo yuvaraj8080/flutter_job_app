@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_job_app/common/Search_Job.dart';
-import 'package:flutter_job_app/utils/loaders/snackbar_loader.dart';
 import 'package:flutter_job_app/utils/shimmer_circular_Indicator/shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -128,7 +127,7 @@ class _JobScreenState extends State<JobScreen> {
                 const Center(child: Text("There is No Jobs"));
               }
             }
-            return const Center(child:Text("Something went wrong;"));
+            return const Center(child:TShimmerEffect(width:double.infinity, height: double.infinity));
           },
         )
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_job_app/data/repositories/user/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../constants/colors.dart';
@@ -27,7 +26,7 @@ class _UploadJobState extends State<UploadJob> {
         return AlertDialog(
           title: const Text("Job Category", textAlign: TextAlign.center),
           content: Container(
-            width: size.width * 0.95,
+            width: size.width * 9,
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: Persistent.jobCategoryList.length,
