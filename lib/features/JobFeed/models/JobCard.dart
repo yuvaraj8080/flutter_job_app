@@ -41,7 +41,7 @@ class _JobCardScreenState extends State<JobCardScreen> {
     final deletejobcontroller = Get.put(JobDeleteController());
     return Card(
         child: ListTile(
-            onTap: ()=> Get.to(()=> const JobDetailScreen()),
+            onTap: ()=> Get.to(()=> JobDetailScreen(uploadedBy:widget.uploadedBy, jobId:widget.jobId)),
             onLongPress: ()=>deletejobcontroller.DeleteJobDialog(()async{
 
               final FirebaseAuth auth = FirebaseAuth.instance;
