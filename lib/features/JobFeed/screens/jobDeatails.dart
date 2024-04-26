@@ -7,10 +7,10 @@ class JobDetailScreen extends StatefulWidget {
   final String jobId;
 
   const JobDetailScreen({
-    super.key,
+    Key? key,
     required this.uploadedBy,
     required this.jobId,
-  });
+  }) : super(key: key);
 
   @override
   State<JobDetailScreen> createState() => _JobDetailScreenState();
@@ -22,15 +22,15 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
   String? jobCategory;
   String? jobDescription;
   String? jobTitle;
-  String? recruitment;
+  bool? recruitment;
   Timestamp? postedDateTimeStamp;
   Timestamp? deadlineDateTimeStamp;
   String? postedDate;
   String? deadlineDate;
-  String? locationCompany;
-  String? emailCompany;
-  int? applicants;
-  bool? isDeadlineAvailable; // Change to bool?
+  String? locationCompany = '';
+  String? emailCompany = '';
+  int? applicants = 0;
+  bool? isDeadlineAvailable = false;
 
   @override
   void initState() {
@@ -38,52 +38,56 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
     getJobData();
   }
 
-  /// CREATING A METHOD TO FETCH THE JOB DETAIL DATA FROM THE BACKEND
   void getJobData() async {
     try {
-      final DocumentSnapshot userDocs = await FirebaseFirestore.instance
-          .collection('User')
+      final userDocs = await FirebaseFirestore.instance
+          .collection('Users')
           .doc(widget.uploadedBy)
           .get();
 
-      if (userDocs.exists) {
+      if (!userDocs.exists) {
+        return;
+      } else {
         setState(() {
-          authorName = userDocs.get('FirstName');
-          userImageUrl = userDocs.get('ProfilePicture');
+          final firstName = userDocs.get('FirstName');
+          final lastName = userDocs.get('LastName');
+          authorName = '$firstName $lastName';
         });
       }
 
-      final DocumentSnapshot jobDatabase = await FirebaseFirestore.instance
+      final jobDatabase = await FirebaseFirestore.instance
           .collection('jobs')
           .doc(widget.jobId)
           .get();
 
-      if (jobDatabase.exists) {
+      if (!jobDatabase.exists) {
+        return;
+      } else {
         setState(() {
+          userImageUrl = jobDatabase.get('userImage');
           jobTitle = jobDatabase.get('jobTitle');
           jobDescription = jobDatabase.get('jobDescription');
           recruitment = jobDatabase.get('recruitment');
           emailCompany = jobDatabase.get('email');
-          locationCompany = jobDatabase.get('location');
-          applicants = jobDatabase.get('applicants');
+          locationCompany = jobDatabase.get('location') ?? ''; // Handle null
+          applicants = jobDatabase.get('applicants') ?? 0; // Handle null
           postedDateTimeStamp = jobDatabase.get('createdAt');
-          deadlineDateTimeStamp = jobDatabase.get('deadline');
-
+          deadlineDateTimeStamp =
+              jobDatabase.get('deadlineDateTimeStamp') ?? '';
+          deadlineDate = jobDatabase.get('deadlineDate') ?? ''; // Handle null
           if (postedDateTimeStamp != null) {
-            var postedDateData = postedDateTimeStamp!.toDate();
-            postedDate = '${postedDateData.year}/${postedDateData.month}/${postedDateData.day}';
+            var postDate = postedDateTimeStamp!.toDate();
+            postedDate = '${postDate.year}/${postDate.month}/${postDate.day}';
           }
-
           if (deadlineDateTimeStamp != null) {
-            var deadlineData = deadlineDateTimeStamp!.toDate();
-            deadlineDate = '${deadlineData.year}/${deadlineData.month}/${deadlineData.day}';
-            isDeadlineAvailable = deadlineData.isAfter(DateTime.now());
+            var date = deadlineDateTimeStamp!.toDate();
+            isDeadlineAvailable = date.isAfter(DateTime.now());
           }
         });
       }
     } catch (e) {
       if (mounted) {
-        TLoaders.customToast(message:e.toString());
+        TLoaders.customToast(message: e.toString());
       }
     }
   }
@@ -98,22 +102,57 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Card(
-              child: Padding(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(jobTitle ?? ''),
-                  ],
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(jobTitle ?? '',
+                            style:
+                                Theme.of(context).textTheme.headlineMedium),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 3, color: Colors.grey),
+                                    shape: BoxShape.rectangle,
+                                    image: DecorationImage(
+                                        image: NetworkImage(userImageUrl == null
+                                            ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHx-26qVB4sL3d0S0bA31ronzegMlaIQ_yltFJz9T84teKbKVU9AEIyuRRE6qnyZlBArg&usqp=CAU"
+                                            : userImageUrl!),
+                                        fit: BoxFit.fill)),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment:CrossAxisAlignment.start,
+                                    children:[
+                                      Text(authorName?? "",style:Theme.of(context).textTheme.titleMedium),
+                                      const SizedBox(height:4),
+                                      Text(locationCompany?? "",style:Theme.of(context).textTheme.bodySmall)
+                                ]),
+                              )
+                            ])
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ]),
+        ),
       ),
     );
   }
