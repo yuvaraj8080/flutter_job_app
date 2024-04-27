@@ -36,6 +36,7 @@ dependencies:
   url_launcher:
   permission_handler:
   uuid:
+  dart_format: ^1.1.17
   fluttertoast:
 
 #  FIREBASE DATABASE PLUGIN

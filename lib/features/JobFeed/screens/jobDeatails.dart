@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,8 +43,10 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
 
   @override
   void initState() {
-    super.initState();
-    getJobData();
+    setState(() {
+      super.initState();
+      getJobData();
+    });
   }
 
   void getJobData() async {
@@ -200,21 +200,39 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                                       children: [
                                         TextButton(
                                             onPressed: () {
-                                              controller.recruitmentUpdate(
+                                              controller.recruitmentOnUpdate(
                                                   widget.uploadedBy,
                                                   widget.jobId);
+                                              getJobData();
                                             },
                                             child: Text("ON",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium)),
-
-                                        /// OPACITY HARE
                                         Opacity(
                                             opacity:
                                                 recruitment == true ? 1 : 0,
                                             child: const Icon(Icons.check_box,
-                                                color: Colors.green))
+                                                color: Colors.green)),
+
+                                        const SizedBox(width: 40),
+
+                                        TextButton(
+                                            onPressed: () {
+                                              controller.recruitmentOffUpdate(
+                                                  widget.uploadedBy,
+                                                  widget.jobId,);
+                                              getJobData();
+                                            },
+                                            child: Text("OFF",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium)),
+                                        Opacity(
+                                            opacity:
+                                            recruitment == false ? 1 : 0,
+                                            child: const Icon(Icons.check_box,
+                                                color: Colors.red)),
                                       ])
                                 ],
                               )
