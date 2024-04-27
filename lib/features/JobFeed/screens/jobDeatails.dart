@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_job_app/data/repositories/job/jobDetail_repository.dart';
 import 'package:flutter_job_app/utils/loaders/snackbar_loader.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../common/TIconButton.dart';
 import '../../../common/divider_widget.dart';
 import '../../../constants/colors.dart';
 import '../models/job_PostDate.dart';
@@ -25,8 +27,8 @@ class JobDetailScreen extends StatefulWidget {
 }
 
 class _JobDetailScreenState extends State<JobDetailScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  bool _isCommeting = false;
+  bool showComment = false;
   String? authorName;
   String? userImageUrl;
   String? jobCategory;
@@ -102,6 +104,28 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
         TLoaders.customToast(message: e.toString());
       }
     }
+  }
+
+  ///APPLYING FOR THE JOB
+  applyForJob() {
+    final Uri prams = Uri(
+        scheme: "mailto",
+        path: emailCompany,
+        query:
+            "subject=Applying for $jobTitle&body=Hello, please attach Resume CV file");
+    final url = prams.toString();
+    launchUrlString(url);
+    addNewApplicants();
+  }
+
+  /// ADDING NEW APPLICANTS
+  void addNewApplicants() async {
+    var docRef =
+        FirebaseFirestore.instance.collection("jobs").doc(widget.jobId);
+    docRef.update({
+      'applicants': applicants! + 1,
+    });
+    Navigator.pop(context);
   }
 
   @override
@@ -263,10 +287,11 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       /// JOB  DATES
-                      jobPostDates(dateName:"Uploaded date:", date:postedDate),
-                      jobPostDates(dateName:"Deadlined date:", date:deadlineDate),
+                      jobPostDates(
+                          dateName: "Uploaded date:", date: postedDate),
+                      jobPostDates(
+                          dateName: "Deadlined date:", date: deadlineDate),
                       const dividerWidget(),
 
                       /// JOB AVAILABLE OR NOT
@@ -279,19 +304,80 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                                 .textTheme
                                 .titleLarge!
                                 .copyWith(
-                                color: isDeadlineAvailable == true
-                                    ? Colors.green
-                                    : Colors.red)),
+                                    color: isDeadlineAvailable == true
+                                        ? Colors.green
+                                        : Colors.red)),
                       ),
 
                       /// JOB APPLY BUTTONS
-                      const SizedBox(height:10),
-                      Center(child: OutlinedButton(onPressed:(){}, child:const Text("Easy Apply Now"))),
+                      const SizedBox(height: 10),
+                      Center(
+                          child: OutlinedButton(
+                              onPressed: () => applyForJob(),
+                              child: const Text("Easy Apply Now"))),
                     ]),
               )),
 
+              /// JOB COMMENT SECTION HARE
+              Card(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        child: _isCommeting
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                    TextField(
+                                        controller:controller.commentController,
+                                        maxLength: 250,
+                                        maxLines:5,
+                                        keyboardType: TextInputType.text),
 
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
 
+                                          /// POST BUTTON HARE
+                                      OutlinedButton(
+                                      onPressed: (){
+                                         controller.addComment(widget.jobId);
+                                         setState(() {
+                                           showComment = true;
+                                         });
+                                      },
+                                      child: const Text("Post")),
+
+                                          /// CANCEL BUTTON HARE
+                                          OutlinedButton(
+                                      onPressed: (){
+                                        setState(() {
+                                          _isCommeting = !_isCommeting;
+                                          showComment = false;
+                                        });
+                                      },
+                                      child:Text("Cancel",style:Theme.of(context).textTheme.titleMedium)),
+                                                                        ])
+                                  ])
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+
+                                  ///  ADD COMMENT AND VIEW COMMENT BUTTON HARE
+                                  TIconButton(iconName:const Icon(Icons.add_comment,size:35), function:(){
+                                    setState(() {
+                                      _isCommeting = !_isCommeting;
+                                    });
+                                  }),
+                                  TIconButton(iconName:const Icon(Icons.arrow_drop_down_circle,size:35), function:(){
+                                    setState(() {
+                                      showComment = false;
+                                    });
+                                  }),
+                                ]
+                        ))
+                  ]))
             ],
           ),
         ),

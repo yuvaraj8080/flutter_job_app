@@ -82,6 +82,7 @@ class _UploadJobState extends State<UploadJob> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(JobController());
