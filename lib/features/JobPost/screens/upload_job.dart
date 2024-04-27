@@ -76,7 +76,7 @@ class _UploadJobState extends State<UploadJob> {
     );
     if (controller.picked != null) {
       controller.deadlineDataController.text =
-          "${controller.picked!.year} / ${controller.picked!.month} / ${controller.picked!.day}";
+          "${controller.picked!.year}/${controller.picked!.month}/${controller.picked!.day}";
       controller.deadlineDeadTimeStamp = Timestamp.fromMillisecondsSinceEpoch(
           controller.picked!.millisecondsSinceEpoch);
     }

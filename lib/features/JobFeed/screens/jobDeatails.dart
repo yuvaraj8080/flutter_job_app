@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../../../common/divider_widget.dart';
 import '../../../constants/colors.dart';
+import '../models/job_PostDate.dart';
 
 class JobDetailScreen extends StatefulWidget {
   final String uploadedBy;
@@ -214,14 +215,13 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                                                 recruitment == true ? 1 : 0,
                                             child: const Icon(Icons.check_box,
                                                 color: Colors.green)),
-
                                         const SizedBox(width: 40),
-
                                         TextButton(
                                             onPressed: () {
                                               controller.recruitmentOffUpdate(
-                                                  widget.uploadedBy,
-                                                  widget.jobId,);
+                                                widget.uploadedBy,
+                                                widget.jobId,
+                                              );
                                               getJobData();
                                             },
                                             child: Text("OFF",
@@ -230,17 +230,68 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                                                     .titleMedium)),
                                         Opacity(
                                             opacity:
-                                            recruitment == false ? 1 : 0,
+                                                recruitment == false ? 1 : 0,
                                             child: const Icon(Icons.check_box,
                                                 color: Colors.red)),
                                       ])
                                 ],
-                              )
+                              ),
+
+                        ///JOB DESCRIPTION HARE
+                        const dividerWidget(),
+                        Text("Job Description",
+                            style: Theme.of(context).textTheme.headlineSmall),
+                        const SizedBox(height: 8),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(jobDescription ?? '',
+                              textAlign: TextAlign.justify,
+                              style: Theme.of(context).textTheme.bodyMedium),
+                        ),
+
+                        ///
                       ],
                     ),
                   ),
                 ),
               ),
+
+              /// JOB POST DEADLINE AVAAILABLE OR NOT
+              Card(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      /// JOB  DATES
+                      jobPostDates(dateName:"Uploaded date:", date:postedDate),
+                      jobPostDates(dateName:"Deadlined date:", date:deadlineDate),
+                      const dividerWidget(),
+
+                      /// JOB AVAILABLE OR NOT
+                      Center(
+                        child: Text(
+                            isDeadlineAvailable == true
+                                ? "Actively Recruiting, send CV/Resume"
+                                : "Deadline Passed away.",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                color: isDeadlineAvailable == true
+                                    ? Colors.green
+                                    : Colors.red)),
+                      ),
+
+                      /// JOB APPLY BUTTONS
+                      const SizedBox(height:10),
+                      Center(child: OutlinedButton(onPressed:(){}, child:const Text("Easy Apply Now"))),
+                    ]),
+              )),
+
+
+
             ],
           ),
         ),
@@ -248,3 +299,4 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
     );
   }
 }
+
