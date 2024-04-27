@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_job_app/data/repositories/job/jobDetail_repository.dart';
 import 'package:flutter_job_app/utils/loaders/snackbar_loader.dart';
+import 'package:get/get.dart';
 
 import '../../../common/divider_widget.dart';
 import '../../../constants/colors.dart';
@@ -24,7 +26,6 @@ class JobDetailScreen extends StatefulWidget {
 }
 
 class _JobDetailScreenState extends State<JobDetailScreen> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String? authorName;
@@ -104,6 +105,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(JobDetailController());
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -126,8 +128,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(jobTitle ?? '',
-                            style:
-                                Theme.of(context).textTheme.headlineMedium),
+                            style: Theme.of(context).textTheme.headlineMedium),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -147,68 +148,76 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
-                                  crossAxisAlignment:CrossAxisAlignment.start,
-                                    children:[
-                                      Text(authorName?? "",style:Theme.of(context).textTheme.titleMedium),
-                                      const SizedBox(height:4),
-                                      Text(locationCompany?? "",style:Theme.of(context).textTheme.bodySmall)
-                                ]),
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(authorName ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium),
+                                      const SizedBox(height: 4),
+                                      Text(locationCompany ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall)
+                                    ]),
                               )
                             ]),
+
                         ///  DIVIDER HARE
                         const dividerWidget(),
 
                         Row(
-                          mainAxisAlignment:MainAxisAlignment.center,
-                            children:[
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
                               Text(applicants.toString(),
-                              style:Theme.of(context).textTheme.titleMedium),
-
-                              const SizedBox(width:8),
-                              Text("Applicants",style:Theme.of(context).textTheme.titleMedium),
-                              const SizedBox(width:10),
-                              const Icon(Icons.how_to_reg_sharp,color:TColors.primaryColor)
-                        ]),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
+                              const SizedBox(width: 8),
+                              Text("Applicants",
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
+                              const SizedBox(width: 10),
+                              const Icon(Icons.how_to_reg_sharp,
+                                  color: TColors.primaryColor)
+                            ]),
 
                         /// RECRUITMENT HARE
-                        FirebaseAuth.instance.currentUser!.uid != widget.uploadedBy
-                        ? Container()
+                        FirebaseAuth.instance.currentUser!.uid !=
+                                widget.uploadedBy
+                            ? Container()
                             : Column(
-                          crossAxisAlignment:CrossAxisAlignment.start,
-                          children: [
-                            const dividerWidget(),
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const dividerWidget(),
+                                  Text("Recruitment",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        TextButton(
+                                            onPressed: () {
+                                              controller.recruitmentUpdate(
+                                                  widget.uploadedBy,
+                                                  widget.jobId);
+                                            },
+                                            child: Text("ON",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium)),
 
-                            Text("Recruitment",style:Theme.of(context).textTheme.titleLarge),
-
-                            Row(
-                              mainAxisAlignment:MainAxisAlignment.center,
-                                children:[
-                                  TextButton(onPressed:(){
-                                    User? user = _auth.currentUser;
-                                    final _uid = user!.uid;
-                                    if(_uid == widget.uploadedBy){
-                                      try{
-                                        FirebaseFirestore.instance.collection("jobs").doc(widget.jobId).update({"recruitment":true});
-                                      }
-                                      catch(e){
-                                        TLoaders.errorSnackBar(title:"Action cannot be perform");
-                                      }
-                                    }else{
-                                      TLoaders.errorSnackBar(title:"You cannot perform this action");
-                                      getJobData();
-                                    }
-                                  },
-                                      child: Text("ON",style:Theme.of(context).textTheme.titleMedium)
-                                  ),
-
-                                  /// OPACITY HARE
-                                  Opacity(opacity:recruitment == true ? 1:0,
-                                  child:const Icon(Icons.check_box,color:Colors.green)
-                                  )
-                            ])
-
-                          ],
-                        )
+                                        /// OPACITY HARE
+                                        Opacity(
+                                            opacity:
+                                                recruitment == true ? 1 : 0,
+                                            child: const Icon(Icons.check_box,
+                                                color: Colors.green))
+                                      ])
+                                ],
+                              )
                       ],
                     ),
                   ),
@@ -221,4 +230,3 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
     );
   }
 }
-
