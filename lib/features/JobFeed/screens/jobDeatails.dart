@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../common/TIconButton.dart';
 import '../../../common/divider_widget.dart';
 import '../../../constants/colors.dart';
+import '../widgets/comments.dart';
 import '../widgets/job_PostDate.dart';
 
 
@@ -44,6 +45,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
   String? emailCompany = '';
   int? applicants = 0;
   bool? isDeadlineAvailable = false;
+
 
   @override
   void initState() {
@@ -372,11 +374,20 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                                   }),
                                   TIconButton(iconName:const Icon(Icons.arrow_drop_down_circle,size:35), function:(){
                                     setState(() {
-                                      showComment = false;
+                                      showComment = !showComment;
                                     });
                                   }),
                                 ]
-                        ))
+                        )),
+
+                        /// JOB COMMENT SCREEN IS HARE
+                        const dividerWidget(),
+                        showComment == false ? Container()
+                            :  Padding(padding: const EdgeInsets.only(left: 8,right:8),
+                          child:
+                          // controller.commentShowMethod(widget.jobId),
+                          Show_Comment_Method(widget: widget)
+                        )
                   ]))
             ],
           ),
@@ -385,4 +396,6 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
     );
   }
 }
+
+
 

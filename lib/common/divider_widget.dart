@@ -10,7 +10,7 @@ class dividerWidget extends StatelessWidget {
     return const Column(children: [
       SizedBox(height:10),
       Divider(
-          thickness:1,color:Colors.grey
+          thickness:2,color:Colors.grey
       ),
       SizedBox(height:10)
     ],);
