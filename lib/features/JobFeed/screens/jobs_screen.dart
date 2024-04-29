@@ -7,9 +7,10 @@ import 'package:flutter_job_app/common/Search_Job.dart';
 import 'package:flutter_job_app/utils/shimmer_circular_Indicator/shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import '../../../constants/persistent.dart';
-import '../models/JobCard.dart';
+import '../widgets/JobCard.dart';
+
+
 
 class JobScreen extends StatefulWidget {
   const JobScreen({super.key});
