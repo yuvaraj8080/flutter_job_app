@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../common/NetworkManager/network_manager.dart';
 import '../data/repositories/user/user_repository.dart';
 import '../features/personalization/controllers/user_controller.dart';
-import '../features/personalization/screens/profile/profile.dart';
+import '../features/personalization/screens/profile.dart';
 import 'loaders/snackbar_loader.dart';
 import 'popups/full_screen_loader.dart';
 

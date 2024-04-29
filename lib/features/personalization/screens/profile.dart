@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../common/widgets.Login_Signup/appBar/appbar.dart';
-import '../../../../common/widgets.Login_Signup/images/t_circular_image.dart';
-import '../../../../common/widgets.Login_Signup/texts/section_heading.dart';
-import '../../../../utils/shimmer_circular_Indicator/shimmer.dart';
-import '../../controllers/user_controller.dart';
-import 'widget/change_name.dart';
-import 'widget/profile_menu.dart';
+import '../../../common/widgets.Login_Signup/appBar/appbar.dart';
+import '../../../common/widgets.Login_Signup/images/t_circular_image.dart';
+import '../../../common/widgets.Login_Signup/texts/section_heading.dart';
+import '../../../utils/shimmer_circular_Indicator/shimmer.dart';
+import '../controllers/user_controller.dart';
+import '../widgets/change_name.dart';
+import '../widgets/profile_menu.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 

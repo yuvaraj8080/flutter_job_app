@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'features/JobFeed/screens/jobs_screen.dart';
 import 'features/JobPost/screens/search_companies.dart';
 import 'features/JobPost/screens/upload_job.dart';
-import 'features/personalization/screens/setting/setting.dart';
+import 'features/personalization/screens/setting.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});

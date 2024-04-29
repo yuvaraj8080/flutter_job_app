@@ -11,7 +11,7 @@ import '../../../utils/User_Model/user_model.dart';
 import '../../../utils/loaders/snackbar_loader.dart';
 import '../../../utils/popups/full_screen_loader.dart';
 import '../../authentication/screens/Login/login.dart';
-import '../screens/profile/widget/re_authenticate_user_login_form.dart';
+import '../widgets/re_authenticate_user_login_form.dart';
 
 class UserController extends GetxController{
   static UserController get instance => Get.find();

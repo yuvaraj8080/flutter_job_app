@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_job_app/features/personalization/screens/profile/profile.dart';
+import 'package:flutter_job_app/features/personalization/screens/profile.dart';
 import 'package:get/get.dart';
 
 class CommentScreen extends StatefulWidget {

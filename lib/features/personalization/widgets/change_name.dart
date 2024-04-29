@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../../common/widgets.Login_Signup/appBar/appbar.dart';
-import '../../../../../utils/update_name_controller.dart';
-import '../../../../../utils/validators/validator.dart';
+import '../../../common/widgets.Login_Signup/appBar/appbar.dart';
+import '../../../utils/update_name_controller.dart';
+import '../../../utils/validators/validator.dart';
 
 class ChangeName extends StatelessWidget {
   const ChangeName({super.key});

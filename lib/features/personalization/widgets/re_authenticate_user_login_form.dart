@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../../utils/validators/validator.dart';
-import '../../../controllers/user_controller.dart';
+import '../../../utils/validators/validator.dart';
+import '../controllers/user_controller.dart';
 
 class ReAuthLoginForm extends StatelessWidget {
   const ReAuthLoginForm({super.key});
