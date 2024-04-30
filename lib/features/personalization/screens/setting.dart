@@ -13,7 +13,9 @@ import '../../../data/repositories/authentication/authentication-repository.dart
 import 'profile.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+  const SettingScreen({super.key, required this.userId});
+
+  final String userId;
 
   @override
   Widget build(BuildContext context) {

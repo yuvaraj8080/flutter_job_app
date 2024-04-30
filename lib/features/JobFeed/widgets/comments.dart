@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_job_app/features/personalization/screens/profile.dart';
+import 'package:flutter_job_app/features/personalization/screens/setting.dart';
 import 'package:get/get.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _CommentScreenState extends State<CommentScreen> {
   Widget build(BuildContext context) {
     _color.shuffle();
     return InkWell(
-      onTap:()=> Get.to(()=>const ProfileScreen()),
+      onTap:()=> Get.to(()=> SettingScreen(userId:widget.commenterId)),
       child:Row(
         crossAxisAlignment:CrossAxisAlignment.start,
           mainAxisAlignment:MainAxisAlignment.start,

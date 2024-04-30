@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'features/JobFeed/screens/jobs_screen.dart';
@@ -30,12 +31,24 @@ class NavigationMenu extends StatelessWidget {
   }
 }
 
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final User? userId = _auth.currentUser;
+final String uid = userId!.uid;
+
 class NavigationController extends GetxController {
+
+  //
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final User? userId = _auth.currentUser;
+  // final String uid = userId!.uid;
+
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
+
     const JobScreen(),
     const SearchCompany(),
     const UploadJob(),
-    const SettingScreen()
+    const SettingScreen(userId:'')
   ];
 }
